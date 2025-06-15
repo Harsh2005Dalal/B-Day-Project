@@ -1,61 +1,84 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Typewriter } from 'react-simple-typewriter';
-import img1 from './assets/homePhotos/1.png'
-import img2 from './assets/homePhotos/2.png'
-import img3 from './assets/homePhotos/3.png'
-import img4 from './assets/homePhotos/4.png'
-import img5 from './assets/homePhotos/5.png'
-import img6 from './assets/homePhotos/6.png'
-import img7 from './assets/homePhotos/7.png'
+import { useEffect, useState, useCallback } from "react";
+import { Typewriter } from "react-simple-typewriter";
+import {Link} from 'react-router-dom'
 
+// Mock images for demo - replace with your actual imports
 const photos = [
-  img1, img2, img3, img4, img5, img6, img7
+  "https://picsum.photos/400/400?random=1",
+  "https://picsum.photos/400/400?random=2", 
+  "https://picsum.photos/400/400?random=3",
+  "https://picsum.photos/400/400?random=4",
+  "https://picsum.photos/400/400?random=5",
+  "https://picsum.photos/400/400?random=6",
+  "https://picsum.photos/400/400?random=7"
 ];
 
 const messages = [
   "Happy Birthday, My Love! 🎂❤️",
   "Every moment with you is a celebration...",
-  "Let's see how well you remember our journey 💌"
+  "Let's see how well you remember our journey 💌",
 ];
 
 const photoAnimations = [
-  'animate-slideInLeft', 'animate-slideInRight', 'animate-slideInTop', 'animate-slideInBottom',
-  'animate-bounceIn', 'animate-spiralIn', 'animate-scaleIn', 'animate-flipIn',
-  'animate-floatIn', 'animate-zoomBounce'
+  "animate-slideInLeft",
+  "animate-slideInRight", 
+  "animate-slideInTop",
+  "animate-slideInBottom",
+  "animate-bounceIn",
+  "animate-spiralIn",
+  "animate-scaleIn",
+  "animate-flipIn",
+  "animate-floatIn",
+  "animate-zoomBounce",
 ];
 
-
- 
+const photoShapes = [
+  "rounded-full",
+  "rounded-none rotate-45",
+  "rounded-3xl",
+  "rounded-tl-full rounded-br-full",
+  "rounded-full border-8 border-white",
+  "rounded-lg transform rotate-12",
+  "clip-path-hexagon",
+  "clip-path-heart", 
+  "rounded-2xl transform -rotate-12",
+  "rounded-full border-4 border-dashed border-pink-300",
+];
 
 function App() {
   const [floatingPhotos, setFloatingPhotos] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState(1);
+  const [fadingPhotos, setFadingPhotos] = useState(new Set());
 
   const getRandomPosition = useCallback((existingPhotos = []) => {
-    const minDistance = 200; // Slightly reduced for better placement
-    const maxAttempts = 30;
+    const minDistance = 150;
+    const maxAttempts = 20;
     let attempts = 0;
     
+    const maxWidth = Math.min(window.innerWidth - 200, 1200);
+    const maxHeight = Math.min(window.innerHeight - 200, 800);
+
     while (attempts < maxAttempts) {
-      const x = Math.random() * (Math.min(window.innerWidth, 1400) - 200);
-      const y = Math.random() * (Math.min(window.innerHeight, 900) - 200);
-      
-      // Check if this position conflicts with existing photos
-      const tooClose = existingPhotos.some(photo => {
-        const distance = Math.sqrt(Math.pow(x - photo.x, 2) + Math.pow(y - photo.y, 2));
+      const x = 50 + Math.random() * (maxWidth - 100);
+      const y = 50 + Math.random() * (maxHeight - 100);
+
+      const tooClose = existingPhotos.some((photo) => {
+        const distance = Math.sqrt(
+          Math.pow(x - photo.x, 2) + Math.pow(y - photo.y, 2)
+        );
         return distance < minDistance;
       });
-      
+
       if (!tooClose) {
         return { x, y };
       }
       attempts++;
     }
-    
-    // Fallback to a safe position if no good spot found
+
+    // Fallback position if all attempts failed
     return {
-      x: Math.random() * (Math.min(window.innerWidth, 1400) - 200),
-      y: Math.random() * (Math.min(window.innerHeight, 900) - 200)
+      x: 50 + Math.random() * (maxWidth - 100),
+      y: 50 + Math.random() * (maxHeight - 100),
     };
   }, []);
 
@@ -63,277 +86,306 @@ function App() {
     return photoAnimations[Math.floor(Math.random() * photoAnimations.length)];
   }, []);
 
-  // Initial photos to ensure page is never empty
+  const getRandomShape = useCallback(() => {
+    return photoShapes[Math.floor(Math.random() * photoShapes.length)];
+  }, []);
+
+  const createNewPhoto = useCallback((existingPhotos = []) => {
+    const position = getRandomPosition(existingPhotos);
+    return {
+      id: Date.now() + Math.random(),
+      src: photos[Math.floor(Math.random() * photos.length)],
+      ...position,
+      animation: getRandomAnimation(),
+      shape: getRandomShape(),
+      createdAt: Date.now(),
+    };
+  }, [getRandomPosition, getRandomAnimation, getRandomShape]);
+
+  // Initialize with photos
   useEffect(() => {
-    // Add initial photos immediately - start with 6 photos
     const initialPhotos = [];
     for (let i = 0; i < 6; i++) {
-      const position = getRandomPosition(initialPhotos);
-      const newPhoto = {
-        id: Date.now() + Math.random() + i,
-        src: photos[Math.floor(Math.random() * photos.length)],
-        ...position,
-        animation: getRandomAnimation(),
-        createdAt: Date.now()
-      };
+      const newPhoto = createNewPhoto(initialPhotos);
+      newPhoto.id = `initial-${i}-${Date.now()}`;
       initialPhotos.push(newPhoto);
     }
     setFloatingPhotos(initialPhotos);
-  }, [getRandomPosition, getRandomAnimation]);
+  }, [createNewPhoto]);
 
-  // Faster continuous photo floating effect
+  // Add new photos periodically
   useEffect(() => {
-    const interval = setInterval(() => {
+    const addPhotoInterval = setInterval(() => {
       setFloatingPhotos(prev => {
-        // Maintain 5-8 photos on screen
+        // Only add if we have less than 8 photos
         if (prev.length >= 8) return prev;
         
-        // Much higher probability of adding photos, especially after initial batch
-        const shouldAdd = prev.length < 6 || Math.random() > 0.3; // Increased from 0.7 to 0.3
-        
-        if (!shouldAdd) return prev;
-        
-        const position = getRandomPosition(prev);
-        const newPhoto = {
-          id: Date.now() + Math.random(),
-          src: photos[Math.floor(Math.random() * photos.length)],
-          ...position,
-          animation: getRandomAnimation(),
-          createdAt: Date.now()
-        };
-        
+        const newPhoto = createNewPhoto(prev);
         return [...prev, newPhoto];
       });
-    }, 1200); // Much faster interval - from 2000ms to 1200ms
+    }, 2000); // Add every 2 seconds
 
-    return () => clearInterval(interval);
-  }, [getRandomPosition, getRandomAnimation]);
+    return () => clearInterval(addPhotoInterval);
+  }, [createNewPhoto]);
 
-  // Cleanup photos with better timing
+  // Remove old photos with fade out animation
   useEffect(() => {
-    const timeouts = floatingPhotos.map((photo, index) => 
-      setTimeout(() => {
-        setFloatingPhotos(prev => {
-          // Don't remove if it would leave us with less than 5 photos
-          if (prev.length <= 5) return prev;
-          return prev.filter(p => p.id !== photo.id);
+    const cleanupInterval = setInterval(() => {
+      setFloatingPhotos(prev => {
+        const now = Date.now();
+        const minPhotos = 4;
+        const maxAge = 8000; // 8 seconds before starting fade
+        
+        // Find photos that should start fading
+        const photosToFade = prev.filter(photo => {
+          const age = now - photo.createdAt;
+          return age > maxAge && prev.length > minPhotos;
         });
-      }, 12000 + (index * 800)) // Reduced display time and stagger for faster cycling
-    );
+        
+        // Start fade animation for old photos
+        if (photosToFade.length > 0) {
+          setFadingPhotos(prevFading => {
+            const newFading = new Set(prevFading);
+            photosToFade.forEach(photo => newFading.add(photo.id));
+            return newFading;
+          });
+          
+          // Remove photos after fade animation completes (2 seconds)
+          photosToFade.forEach(photo => {
+            setTimeout(() => {
+              setFloatingPhotos(currentPhotos => 
+                currentPhotos.filter(p => p.id !== photo.id)
+              );
+              setFadingPhotos(prevFading => {
+                const newFading = new Set(prevFading);
+                newFading.delete(photo.id);
+                return newFading;
+              });
+            }, 2000);
+          });
+        }
+        
+        return prev;
+      });
+    }, 1000); // Check every second
 
-    return () => timeouts.forEach(clearTimeout);
-  }, [floatingPhotos]);
+    return () => clearInterval(cleanupInterval);
+  }, []);
 
-  const handleStartQuiz = () => {
-    setCurrentQuiz(1);
-    // In a real app, you'd navigate to the quiz route
-    console.log('Starting quiz...');
-  };
+  // Safety check to ensure we always have minimum photos
+  useEffect(() => {
+    const safetyInterval = setInterval(() => {
+      setFloatingPhotos(prev => {
+        const minPhotos = 4;
+        if (prev.length < minPhotos) {
+          const photosToAdd = minPhotos - prev.length;
+          const newPhotos = [];
+          
+          for (let i = 0; i < photosToAdd; i++) {
+            const newPhoto = createNewPhoto([...prev, ...newPhotos]);
+            newPhoto.id = `safety-${i}-${Date.now()}`;
+            newPhotos.push(newPhoto);
+          }
+          
+          return [...prev, ...newPhotos];
+        }
+        return prev;
+      });
+    }, 3000); // Check every 3 seconds
+
+    return () => clearInterval(safetyInterval);
+  }, [createNewPhoto]);
+
 
   return (
     <>
       <style jsx>{`
         @keyframes slideInLeft {
-          0% { 
-            opacity: 0; 
-            transform: translateX(-100vw) scale(0.8) rotate(-10deg); 
+          0% {
+            opacity: 0;
+            transform: translateX(-100vw) scale(0.8) rotate(-10deg);
           }
-          60% { 
-            opacity: 1; 
-            transform: translateX(20px) scale(1.1) rotate(5deg); 
+          60% {
+            opacity: 1;
+            transform: translateX(20px) scale(1.1) rotate(5deg);
           }
-          80% { 
-            opacity: 1; 
-            transform: translateX(-10px) scale(1) rotate(-2deg); 
+          80% {
+            opacity: 1;
+            transform: translateX(-10px) scale(1) rotate(-2deg);
           }
-          100% { 
-            opacity: 1; 
-            transform: translateX(0) scale(1) rotate(0deg); 
+          100% {
+            opacity: 1;
+            transform: translateX(0) scale(1) rotate(0deg);
           }
         }
 
         @keyframes slideInRight {
-          0% { 
-            opacity: 0; 
-            transform: translateX(100vw) scale(0.8) rotate(10deg); 
+          0% {
+            opacity: 0;
+            transform: translateX(100vw) scale(0.8) rotate(10deg);
           }
-          60% { 
-            opacity: 1; 
-            transform: translateX(-20px) scale(1.1) rotate(-5deg); 
+          60% {
+            opacity: 1;
+            transform: translateX(-20px) scale(1.1) rotate(-5deg);
           }
-          80% { 
-            opacity: 1; 
-            transform: translateX(10px) scale(1) rotate(2deg); 
+          80% {
+            opacity: 1;
+            transform: translateX(10px) scale(1) rotate(2deg);
           }
-          100% { 
-            opacity: 1; 
-            transform: translateX(0) scale(1) rotate(0deg); 
+          100% {
+            opacity: 1;
+            transform: translateX(0) scale(1) rotate(0deg);
           }
         }
 
         @keyframes slideInTop {
-          0% { 
-            opacity: 0; 
-            transform: translateY(-100vh) scale(0.9) rotate(-5deg); 
+          0% {
+            opacity: 0;
+            transform: translateY(-100vh) scale(0.9) rotate(-5deg);
           }
-          70% { 
-            opacity: 1; 
-            transform: translateY(15px) scale(1.05) rotate(3deg); 
+          70% {
+            opacity: 1;
+            transform: translateY(15px) scale(1.05) rotate(3deg);
           }
-          100% { 
-            opacity: 1; 
-            transform: translateY(0) scale(1) rotate(0deg); 
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
           }
         }
 
         @keyframes slideInBottom {
-          0% { 
-            opacity: 0; 
-            transform: translateY(100vh) scale(0.9) rotate(5deg); 
+          0% {
+            opacity: 0;
+            transform: translateY(100vh) scale(0.9) rotate(5deg);
           }
-          70% { 
-            opacity: 1; 
-            transform: translateY(-15px) scale(1.05) rotate(-3deg); 
+          70% {
+            opacity: 1;
+            transform: translateY(-15px) scale(1.05) rotate(-3deg);
           }
-          100% { 
-            opacity: 1; 
-            transform: translateY(0) scale(1) rotate(0deg); 
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
           }
         }
 
         @keyframes bounceIn {
-          0% { 
-            opacity: 0; 
-            transform: scale(0.3) rotate(0deg); 
+          0% {
+            opacity: 0;
+            transform: scale(0.3) rotate(0deg);
           }
-          50% { 
-            opacity: 1; 
-            transform: scale(1.2) rotate(5deg); 
+          50% {
+            opacity: 1;
+            transform: scale(1.2) rotate(5deg);
           }
-          65% { 
-            transform: scale(0.9) rotate(-3deg); 
+          65% {
+            transform: scale(0.9) rotate(-3deg);
           }
-          80% { 
-            transform: scale(1.1) rotate(2deg); 
+          80% {
+            transform: scale(1.1) rotate(2deg);
           }
-          100% { 
-            opacity: 1; 
-            transform: scale(1) rotate(0deg); 
+          100% {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
           }
         }
 
         @keyframes spiralIn {
-          0% { 
-            opacity: 0; 
-            transform: scale(0.1) rotate(-360deg); 
+          0% {
+            opacity: 0;
+            transform: scale(0.1) rotate(-360deg);
           }
-          70% { 
-            opacity: 1; 
-            transform: scale(1.1) rotate(20deg); 
+          70% {
+            opacity: 1;
+            transform: scale(1.1) rotate(20deg);
           }
-          100% { 
-            opacity: 1; 
-            transform: scale(1) rotate(0deg); 
+          100% {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
           }
         }
 
         @keyframes scaleIn {
-          0% { 
-            opacity: 0; 
-            transform: scale(0.1); 
+          0% {
+            opacity: 0;
+            transform: scale(0.1);
           }
-          60% { 
-            opacity: 1; 
-            transform: scale(1.3); 
+          60% {
+            opacity: 1;
+            transform: scale(1.3);
           }
-          80% { 
-            transform: scale(0.9); 
+          80% {
+            transform: scale(0.9);
           }
-          100% { 
-            opacity: 1; 
-            transform: scale(1); 
+          100% {
+            opacity: 1;
+            transform: scale(1);
           }
         }
 
         @keyframes flipIn {
-          0% { 
-            opacity: 0; 
-            transform: perspective(400px) rotateY(-90deg) scale(0.8); 
+          0% {
+            opacity: 0;
+            transform: perspective(400px) rotateY(-90deg) scale(0.8);
           }
-          40% { 
-            transform: perspective(400px) rotateY(-20deg) scale(1.1); 
+          40% {
+            transform: perspective(400px) rotateY(-20deg) scale(1.1);
           }
-          60% { 
-            opacity: 1; 
-            transform: perspective(400px) rotateY(10deg) scale(1); 
+          60% {
+            opacity: 1;
+            transform: perspective(400px) rotateY(10deg) scale(1);
           }
-          80% { 
-            transform: perspective(400px) rotateY(-5deg) scale(1); 
+          80% {
+            transform: perspective(400px) rotateY(-5deg) scale(1);
           }
-          100% { 
-            opacity: 1; 
-            transform: perspective(400px) rotateY(0deg) scale(1); 
+          100% {
+            opacity: 1;
+            transform: perspective(400px) rotateY(0deg) scale(1);
           }
         }
 
         @keyframes floatIn {
-          0% { 
-            opacity: 0; 
-            transform: translateY(30px) scale(0.8); 
+          0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.8);
           }
-          60% { 
-            opacity: 1; 
-            transform: translateY(-10px) scale(1.05); 
+          60% {
+            opacity: 1;
+            transform: translateY(-10px) scale(1.05);
           }
-          100% { 
-            opacity: 1; 
-            transform: translateY(0) scale(1); 
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
           }
         }
 
         @keyframes zoomBounce {
-          0% { 
-            opacity: 0; 
-            transform: scale(0.3) translateY(0px); 
+          0% {
+            opacity: 0;
+            transform: scale(0.3) translateY(0px);
           }
-          40% { 
-            opacity: 1; 
-            transform: scale(1.3) translateY(-30px); 
+          40% {
+            opacity: 1;
+            transform: scale(1.3) translateY(-30px);
           }
-          60% { 
-            opacity: 1; 
-            transform: scale(0.9) translateY(10px); 
+          60% {
+            opacity: 1;
+            transform: scale(0.9) translateY(10px);
           }
-          80% { 
-            transform: scale(1.1) translateY(-5px); 
+          80% {
+            transform: scale(1.1) translateY(-5px);
           }
-          100% { 
-            opacity: 1; 
-            transform: scale(1) translateY(0px); 
-          }
-        }
-
-        @keyframes fadeOutSlow {
-          0% { 
-            opacity: 1; 
-            transform: scale(1) rotate(0deg); 
-          }
-          70% { 
-            opacity: 0.8; 
-            transform: scale(1.05) rotate(2deg); 
-          }
-          100% { 
-            opacity: 0; 
-            transform: scale(0.8) rotate(-5deg); 
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0px);
           }
         }
 
         @keyframes gentleHover {
-          0%, 100% { 
-            transform: translateY(0px) rotate(0deg); 
+          0%, 100% {
+            transform: translateY(0px) rotate(0deg);
           }
-          50% { 
-            transform: translateY(-8px) rotate(1deg); 
+          50% {
+            transform: translateY(-8px) rotate(1deg);
           }
         }
 
@@ -381,56 +433,93 @@ function App() {
           }
         }
 
-        .animate-slideInLeft { 
-          animation: slideInLeft 2s ease-out forwards, gentleHover 4s ease-in-out infinite 2s, fadeOutSlow 2s ease-in-out 6s forwards; 
+        @keyframes fadeOutSlow {
+          0% {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+          }
+          70% {
+            opacity: 0.8;
+            transform: scale(1.05) rotate(2deg);
+          }
+          100% {
+            opacity: 0;
+            transform: scale(0.8) rotate(-5deg);
+          }
         }
-        .animate-slideInRight { 
-          animation: slideInRight 2s ease-out forwards, gentleHover 4s ease-in-out infinite 2s, fadeOutSlow 2s ease-in-out 6s forwards; 
+
+        .animate-slideInLeft {
+          animation: slideInLeft 2s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 2s;
         }
-        .animate-slideInTop { 
-          animation: slideInTop 1.8s ease-out forwards, gentleHover 4s ease-in-out infinite 1.8s, fadeOutSlow 2s ease-in-out 6.2s forwards; 
+        .animate-slideInRight {
+          animation: slideInRight 2s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 2s;
         }
-        .animate-slideInBottom { 
-          animation: slideInBottom 1.8s ease-out forwards, gentleHover 4s ease-in-out infinite 1.8s, fadeOutSlow 2s ease-in-out 6.2s forwards; 
+        .animate-slideInTop {
+          animation: slideInTop 1.8s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 1.8s;
         }
-        .animate-bounceIn { 
-          animation: bounceIn 2.5s ease-out forwards, gentleHover 4s ease-in-out infinite 2.5s, fadeOutSlow 2s ease-in-out 5.5s forwards; 
+        .animate-slideInBottom {
+          animation: slideInBottom 1.8s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 1.8s;
         }
-        .animate-spiralIn { 
-          animation: spiralIn 3s ease-out forwards, gentleHover 4s ease-in-out infinite 3s, fadeOutSlow 2s ease-in-out 5s forwards; 
+        .animate-bounceIn {
+          animation: bounceIn 2.5s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 2.5s;
         }
-        .animate-scaleIn { 
-          animation: scaleIn 2s ease-out forwards, gentleHover 4s ease-in-out infinite 2s, fadeOutSlow 2s ease-in-out 6s forwards; 
+        .animate-spiralIn {
+          animation: spiralIn 3s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 3s;
         }
-        .animate-flipIn { 
-          animation: flipIn 2.2s ease-out forwards, gentleHover 4s ease-in-out infinite 2.2s, fadeOutSlow 2s ease-in-out 5.8s forwards; 
+        .animate-scaleIn {
+          animation: scaleIn 2s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 2s;
         }
-        .animate-floatIn { 
-          animation: floatIn 1.5s ease-out forwards, gentleHover 4s ease-in-out infinite 1.5s, fadeOutSlow 2s ease-in-out 6.5s forwards; 
+        .animate-flipIn {
+          animation: flipIn 2.2s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 2.2s;
         }
-        .animate-zoomBounce { 
-          animation: zoomBounce 2.8s ease-out forwards, gentleHover 4s ease-in-out infinite 2.8s, fadeOutSlow 2s ease-in-out 5.2s forwards; 
+        .animate-floatIn {
+          animation: floatIn 1.5s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 1.5s;
         }
-        
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        .animate-pulse-slow { animation: pulse 3s ease-in-out infinite; }
-        .animate-twinkle { animation: twinkle 2s ease-in-out infinite; }
-        .animate-drift { animation: drift 8s ease-in-out infinite; }
+        .animate-zoomBounce {
+          animation: zoomBounce 2.8s ease-out forwards,
+            gentleHover 4s ease-in-out infinite 2.8s;
+        }
+
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-pulse-slow {
+          animation: pulse 3s ease-in-out infinite;
+        }
+        .animate-twinkle {
+          animation: twinkle 2s ease-in-out infinite;
+        }
+        .animate-drift {
+          animation: drift 8s ease-in-out infinite;
+        }
+
+        .animate-fadeOut {
+          animation: fadeOutSlow 2s ease-in-out forwards;
+        }
 
         .bg-gradient-romantic {
-          background: linear-gradient(135deg, 
-            #fce7f3 0%, 
-            #fdf2f8 25%, 
-            #fef3c7 50%, 
-            #ecfdf5 75%, 
+          background: linear-gradient(
+            135deg,
+            #fce7f3 0%,
+            #fdf2f8 25%,
+            #fef3c7 50%,
+            #ecfdf5 75%,
             #ede9fe 100%
           );
         }
 
-        .backdrop-blur-gentle {
-          backdrop-filter: blur(3px);
-          background: rgba(255, 255, 255, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.4);
+        .backdrop-light {
+          background: rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .text-shadow {
@@ -438,7 +527,7 @@ function App() {
         }
 
         .floating-hearts::before {
-          content: '💕';
+          content: "💕";
           position: absolute;
           animation: float 4s ease-in-out infinite;
           font-size: 2rem;
@@ -448,7 +537,7 @@ function App() {
         }
 
         .floating-hearts::after {
-          content: '💖';
+          content: "💖";
           position: absolute;
           animation: float 4s ease-in-out infinite 2s;
           font-size: 1.5rem;
@@ -459,69 +548,104 @@ function App() {
 
         .photo-crisp {
           filter: sepia(15%) saturate(1.3) brightness(1.1) contrast(1.15) !important;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.25), 0 0 20px rgba(255,255,255,0.4), inset 0 0 0 2px rgba(255,255,255,0.3) !important;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25),
+            0 0 20px rgba(255, 255, 255, 0.4),
+            inset 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+        }
+
+        .clip-path-hexagon {
+          clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+        }
+
+        .clip-path-heart {
+          clip-path: path('M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5 C2,5.42,4.42,3,7.5,3c1.74,0,3.41,0.81,4.5,2.09C13.09,3.81,14.76,3,16.5,3 C19.58,3,22,5.42,22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z');
+          transform: scale(0.8);
         }
       `}</style>
 
       <div className="relative min-h-screen bg-gradient-romantic overflow-hidden">
-        {/* Floating Photos with Enhanced Clarity */}
+        {/* Debug Info */}
+        <div className="absolute top-4 left-4 bg-black/20 text-white p-2 rounded z-50 text-sm">
+          Photos: {floatingPhotos.length}
+        </div>
+
+        {/* Floating Photos */}
         {floatingPhotos.map((photo, index) => (
           <img
             key={photo.id}
             src={photo.src}
             alt="Beautiful memories"
-            className={`absolute w-36 h-36 md:w-48 md:h-48 object-cover rounded-full shadow-2xl border-4 border-white/90 photo-crisp ${photo.animation}`}
+            className={`absolute w-32 h-32 md:w-40 md:h-40 object-cover shadow-2xl border-4 border-white/90 photo-crisp ${photo.animation} ${photo.shape} ${
+              fadingPhotos.has(photo.id) ? 'animate-fadeOut' : ''
+            }`}
             style={{
               top: photo.y,
               left: photo.x,
-              pointerEvents: 'none',
-              zIndex: index % 2 === 0 ? 1 : 2, // Alternating z-index for layered effect
+              pointerEvents: "none",
+              zIndex: index % 2 === 0 ? 1 : 2,
             }}
             loading="lazy"
           />
         ))}
 
-        {/* Enhanced Decorative Elements */}
-        <div className="absolute top-10 left-10 text-6xl opacity-30 animate-drift">🌹</div>
-        <div className="absolute top-20 right-20 text-4xl opacity-35 animate-twinkle" style={{ animationDelay: '1s' }}>💕</div>
-        <div className="absolute bottom-20 left-20 text-5xl opacity-30 animate-float" style={{ animationDelay: '2s' }}>🎂</div>
-        <div className="absolute bottom-40 right-40 text-3xl opacity-40 animate-drift" style={{ animationDelay: '3s' }}>✨</div>
-        <div className="absolute top-1/3 left-5 text-3xl opacity-25 animate-twinkle" style={{ animationDelay: '4s' }}>🎈</div>
-        <div className="absolute top-1/2 right-5 text-4xl opacity-30 animate-float" style={{ animationDelay: '5s' }}>🎀</div>
-        <div className="absolute bottom-1/3 left-1/4 text-2xl opacity-35 animate-drift" style={{ animationDelay: '2.5s' }}>💖</div>
-        <div className="absolute top-3/4 right-1/3 text-3xl opacity-25 animate-twinkle" style={{ animationDelay: '1.5s' }}>🌟</div>
+        {/* Decorative Elements */}
+        <div className="absolute top-10 left-10 text-6xl opacity-30 animate-drift">
+          🌹
+        </div>
+        <div
+          className="absolute top-20 right-20 text-4xl opacity-35 animate-twinkle"
+          style={{ animationDelay: "1s" }}
+        >
+          💕
+        </div>
+        <div
+          className="absolute bottom-20 left-20 text-5xl opacity-30 animate-float"
+          style={{ animationDelay: "2s" }}
+        >
+          🎂
+        </div>
+        <div
+          className="absolute bottom-40 right-40 text-3xl opacity-40 animate-drift"
+          style={{ animationDelay: "3s" }}
+        >
+          ✨
+        </div>
 
         {/* Main Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10">
-          <div className="backdrop-blur-gentle rounded-3xl p-8 md:p-12 shadow-2xl max-w-4xl mx-auto floating-hearts relative">
+          <div className="backdrop-light rounded-3xl p-8 md:p-12 shadow-2xl max-w-4xl mx-auto floating-hearts relative">
             <h1 className="text-3xl md:text-6xl font-bold text-rose-700 mb-6 text-shadow animate-pulse-slow">
-              <Typewriter 
-                words={messages} 
-                loop={0} 
-                cursor 
-                cursorStyle="_" 
-                typeSpeed={70} 
-                deleteSpeed={50} 
-                delaySpeed={2000} 
+              <Typewriter
+                words={messages}
+                loop={0}
+                cursor
+                cursorStyle="_"
+                typeSpeed={70}
+                deleteSpeed={50}
+                delaySpeed={2000}
               />
             </h1>
 
             <div className="space-y-4 mb-8">
               <p className="text-lg md:text-2xl text-rose-600 font-medium animate-float">
-                On this special day, I just want to remind you how much you mean to me... 🌹
+                On this special day, I just want to remind you how much you mean
+                to me... 🌹
               </p>
-              <p className="text-base md:text-lg text-rose-500 opacity-90" style={{ animationDelay: '1s' }}>
+              <p
+                className="text-base md:text-lg text-rose-500 opacity-90"
+                style={{ animationDelay: "1s" }}
+              >
                 Every moment with you is etched in my heart forever. 💖
               </p>
             </div>
 
-            <button
-              onClick={handleStartQuiz}
+            <Link
+            to= '/quiz/1'
               className="px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-full text-lg md:text-xl shadow-2xl hover:from-rose-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-rose-300 animate-pulse-slow"
               aria-label="Start the romantic birthday quiz"
             >
               Start Our Journey Quiz 🎉✨
-            </button>
+            </Link>
 
             <p className="mt-4 text-sm text-rose-400 opacity-75">
               Let's relive our beautiful memories together...
@@ -529,7 +653,7 @@ function App() {
           </div>
         </div>
 
-        {/* Enhanced Ambient Particles */}
+        {/* Ambient Particles */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(25)].map((_, i) => (
             <div
@@ -540,14 +664,19 @@ function App() {
                 top: `${Math.random() * 100}%`,
                 width: `${2 + Math.random() * 4}px`,
                 height: `${2 + Math.random() * 4}px`,
-                backgroundColor: ['#f43f5e', '#ec4899', '#8b5cf6', '#06b6d4', '#10b981'][Math.floor(Math.random() * 5)],
+                backgroundColor: [
+                  "#f43f5e",
+                  "#ec4899",
+                  "#8b5cf6",
+                  "#06b6d4",
+                  "#10b981",
+                ][Math.floor(Math.random() * 5)],
                 animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${2 + Math.random() * 3}s`
+                animationDuration: `${2 + Math.random() * 3}s`,
               }}
             />
           ))}
-          
-          {/* Floating heart particles */}
+
           {[...Array(8)].map((_, i) => (
             <div
               key={`heart-${i}`}
@@ -557,7 +686,7 @@ function App() {
                 top: `${Math.random() * 100}%`,
                 fontSize: `${12 + Math.random() * 8}px`,
                 animationDelay: `${Math.random() * 8}s`,
-                animationDuration: `${6 + Math.random() * 4}s`
+                animationDuration: `${6 + Math.random() * 4}s`,
               }}
             >
               💕
