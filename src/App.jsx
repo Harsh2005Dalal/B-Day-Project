@@ -4,13 +4,30 @@ import {Link} from 'react-router-dom'
 
 // Mock images for demo - replace with your actual imports
 const photos = [
-  // "/src/assets/homePhotos/1.png",
-  // "/src/assets/homePhotos/2.png",
-  // "/src/assets/homePhotos/3.png",
-  // "/src/assets/homePhotos/4.png",
-  // "/src/assets/homePhotos/5.png",
-  // "/src/assets/homePhotos/6.png",
-  // "/src/assets/homePhotos/7.png",
+"/1stPagePhotos/1.jpg",
+//1stPageingPhotos/2.jpg",
+"/1stPagePhotos/3.jpg",
+"/1stPagePhotos/4.jpg",
+"/1stPagePhotos/5.jpg",
+"/1stPagePhotos/6.jpg",
+"/1stPagePhotos/7.jpg",
+//1stPageingPhotos/8.jpg",
+"/1stPagePhotos/9.jpg",
+"/1stPagePhotos/10.jpg",
+"/1stPagePhotos/11.jpg",
+"/1stPagePhotos/12.jpg",
+"/1stPagePhotos/13.jpg",
+"/1stPagePhotos/14.jpg",
+"/1stPagePhotos/15.jpg",
+"/1stPagePhotos/16.jpg",
+"/1stPagePhotos/17.jpg",
+"/1stPagePhotos/18.jpg",
+"/1stPagePhotos/19.jpg",
+"/1stPagePhotos/20.jpg",
+"/1stPagePhotos/21.jpg",
+"/1stPagePhotos/22.jpg",
+// "/bouncingPhotos/11.jpg",
+// "/bouncingPhotos/11.jpg",
 ];
 
 const messages = [

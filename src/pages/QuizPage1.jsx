@@ -3,69 +3,181 @@ import { Heart, Star, Gift, Camera, Sparkles } from "lucide-react";
 
 // Quiz questions data - Add your own questions here
 const quizQuestions = [
+  // {
+  //   question: "Whos's your Celebrity Crush??(Give First Name only)",
+  //   answer: "rohit",
+  //   options: ["Rohit", "Korean", "Harsh", "None"],
+  //   correctOption: "Rohit",
+  //   hint: "You really need hint for this one??....",
+  //   sweetMessage: "Oh, Shouldnt it be Me, Dumbass?😁 (Dekh to kitna handsome hu mein)",
+  //   photoUrl: "/quizPhotos/q1.jpg",
+  //   page: "48"
+  // },
+  // {
+  //   question: "Which of you Galentines I hate the most?🙄",
+  //   answer: "sanvi",
+  //   options: ["Sanvi", "Kaashika", "Ananya", "Kanika"],
+  //   correctOption: "Sanvi",
+  //   hint: "How dare she kiss you??🥲",
+  //   sweetMessage: "Goddddd, I'm gonna kill her for sure",
+  //   photoUrl: "/quizPhotos/q2.jpg",
+  //   page: "48"
+  // },
+  // {
+  //   question: "Remember the 1st place we sat and talk after we confessed?(just name the building(short name only))",
+  //   answer: "audi",
+  //   options: ["Audi", "Loc", "Sab", "Canteen"],
+  //   correctOption: "audi",
+  //   hint: "Remember you made me go here and there?😁",
+  //   sweetMessage: "Wanna sit there again?",
+  //   photoUrl: "/quizPhotos/q3.jpg",
+  //   page: "48"
+  // },
+  // {
+  //   question: "Remeber the date you disowned me the 1st time(Ex:- 29 for 29 May)",
+  //   answer: "10",
+  //   options: ["10", "12", "16", "23"],
+  //   correctOption: "10",
+  //   hint: "Kanika showed you a photo of mine....",
+  //   sweetMessage: "Yaar Itna bhi bura nhi lg rha tha mein🙄",
+  //   photoUrl: "/quizPhotos/q4.jpg",
+  //   page: ""
+  // },
+  // {
+  //   question: "Who dropped Waffle on that day??(Name)",
+  //   answer: "anushka",
+  //   options: ["Anushka", "Anushka", "Anushka", "Anushka"],
+  //   correctOption: "Anushka",
+  //   hint: "The one who's giving the quiz right now😁",
+  //   sweetMessage: "Tune hi giraya tha voh😤",
+  //   photoUrl: "/quizPhotos/q5.jpg",
+  //   page: ""
+  // },
+  // {
+  //   question: "Who's Smarter between us?",
+  //   answer: "harsh",
+  //   options: ["Harsh", "Anushka", "Harsh", "Anushka"],
+  //   correctOption: "Anushka",
+  //   hint: "I know iska to galat hi diya hoga tune😂",
+  //   sweetMessage: "Ismein kya doubt hai, Mein hi hu obv😁",
+  //   photoUrl: "/quizPhotos/q6.jpg",
+  //   page: ""
+  // },
+  // {
+  //   question: "First nickname I gave you??(just the 1st word)",
+  //   answer: "gulabi",
+  //   options: ["Pringles", "Dumbass", "Butki", "Gulabi Mehndhak"],
+  //   correctOption: "Gulabi Mehndhak",
+  //   hint: "Socho Socho..., Zor daalo dimaag pe",
+  //   sweetMessage: "I love You, My Gulabi Mehndhak❤️(and Ik ye top gulabi nhi hai🙄)",
+  //   photoUrl: "/quizPhotos/q7.jpg",
+  //   page: ""
+  // },
+  // {
+  //   question: "If your friend group is galentine, what's mine?",
+  //   answer: "balentine",
+  //   options: ["Balentine", "Valentine", "LOC", "Mujhe kya Pta"],
+  //   correctOption: "Balentine",
+  //   hint: "Balentine it is, Dumbass",
+  //   sweetMessage: "Teri Galentines ki toh.....😊",
+  //   photoUrl: "/quizPhotos/q8.jpg",
+  //   page: ""
+  // },
+
+  // {
+  //   question: "Date of our first hug?(Only date)",
+  //   answer: "26",
+  //   options: ["25", "26", "29", "31"],
+  //   correctOption: "26",
+  //   hint: "Balentine it is, Dumbass",
+  //   sweetMessage: "Teri Galentines ki toh.....😊",
+  //   photoUrl: "/quizPhotos/q8.jpg",
+  //   page: ""
+  // },
+
+  // {
+  //   question: "1st Petname you gave me??",
+  //   answer: "tommy",
+  //   options: ["Tommy", "Butku", "Cutuu", "Petname, aur tujhe😂😂"],
+  //   correctOption: "Tommy",
+  //   hint: "Aasan hai",
+  //   sweetMessage: "Bhai, Literally Pets ko dete hai vo name😂",
+  //   photoUrl: "/quizPhotos/q9.jpg",
+  //   page: ""
+  // },
+
+  // {
+  //   question: "Which song were you singing the day you put laal tile up my ass?🥲",
+  //   answer: "twinkle",
+  //   options: ["Twinkle Twinkle", "Laki ki Kathi", "Doraemon", "Mujhe gaana nhi aata"],
+  //   correctOption: "Twinkle Twinkle",
+  //   hint: "Stars",
+  //   sweetMessage: "Yahi reaction tha mera bhi, teri baatein sun ke😂",
+  //   photoUrl: "/quizPhotos/q10.jpg",
+  //   page: ""
+  // },
+  // {
+  //   question: "Color of your 1st hairband I stole?",
+  //   answer: "orange",
+  //   options: ["Orange", "Black", "Blue", "Pink"],
+  //   correctOption: "Orange",
+  //   hint: "Ummm...., No Hint for this one",
+  //   sweetMessage: "Ab to ye mera hai, Will never return it now😁",
+  //   photoUrl: "/quizPhotos/q11.jpg",
+  //   page: ""
+  // },
+
   {
-    question: "Whos's your Celebrity Crush??(Give First Name only)",
-    answer: "rohit",
-    options: ["rohit", "korean", "harsh", "None"],
-    correctOption: "rohit",
-    hint: "You really need hint for this one??....",
-    sweetMessage: "Oh, Dumbass, Shouldnt it be Me, Dumbass?😁 (Dekh to kitna handsome hu mein)",
-    photoUrl: "/quizPhotos/q1.jpg",
-    page:"48"
+    question: "Yaad hai pehla gift kya diya tha mujhe?",
+    answer: "perfume",
+    options: ["Perfume", "Band", "Chocolate", "Umm....."],
+    correctOption: "Perfume",
+    hint: "Mere Bday pe diya tha",
+    sweetMessage: "Company yaad hai uss box ki?",
+    photoUrl: "/quizPhotos/q12.jpg",
+    page: ""
   },
-  {
-    question: "Where did we have our first kiss?",
-    answer: "park",
-    options: ["At the park", "In the car", "At my place", "At the beach"],
-    correctOption: "at the park",
-    hint: "Under the stars, surrounded by nature... 🌟",
-    sweetMessage: "That moment is forever etched in my heart. Time stopped and all I could see was you. 💋",
-    photoUrl: "https://via.placeholder.com/400x300/ff9999/ffffff?text=First+Kiss+Moment"
-  }
+
 ];
 
 // Random floating photos - Replace these URLs with your actual photo URLs
 const floatingPhotosUrls = [
-  "/src/assets/homePhotos/1.png",
-  // "/src/assets/homePhotos/2.png",
-  // "/src/assets/homePhotos/3.png",
-  // "/src/assets/homePhotos/4.png",
-  // "/src/assets/homePhotos/5.png",
-  // "/src/assets/homePhotos/6.png",
-  // "/src/assets/homePhotos/7.png",
+"/bouncingPhotos/1.jpg",
+// "/bouncingPhotos/2.jpg",
+"/bouncingPhotos/3.jpg",
+"/bouncingPhotos/4.jpg",
+"/bouncingPhotos/5.jpg",
+"/bouncingPhotos/6.jpg",
+"/bouncingPhotos/7.jpg",
+// "/bouncingPhotos/8.jpg",
+"/bouncingPhotos/9.jpg",
+"/bouncingPhotos/10.jpg",
+"/bouncingPhotos/11.jpg",
 ];
 
 // Dynamic final messages based on performance
 const getFinalMessage = (percentage) => {
-  if (percentage === 100) {
-    return "WOW! You're absolutely PERFECT! 🌟 You remember everything about us - you're not just my lover, you're my soulmate who pays attention to every beautiful detail of our journey together! Your memory of our love story is as perfect as you are! 💕✨";
-  } else if (percentage >= 80) {
-    return "You're AMAZING! 💖 You remember almost everything about our love story. You have such a beautiful heart and mind that treasures our moments together! Your love shines through in how well you remember us! 🌟";
-  } else if (percentage >= 60) {
-    return "You're so SWEET! 💕 You remember the important moments that matter most. Your love shines through even when details get fuzzy - and that's what makes you perfect for me! Our connection goes beyond memory! 💫";
-  } else if (percentage >= 40) {
-    return "You're absolutely ADORABLE! 💝 Even when you can't remember every detail, your love for me is so clear and beautiful. That's all that truly matters, my love! Your heart remembers what's important! 🥰";
-  } else if (percentage >= 20) {
-    return "You're so CUTE trying your best! 💕 I love how you tried to remember our precious moments. Don't worry, we'll make so many more unforgettable memories together! Your effort means everything to me! 😘";
+  if (percentage >= 60) {
+    return "Wow Dumbass!!, You remeber quite a lot. I was right, Cheezein yaad rakhne ka kaam tujhe hi krna chahiye🙄, Vo Sab Chodd, Happy Bday Yaar, Hope You liked this present. Just 1 more thing, There's a final hint for you. Click on the button😉";
   } else {
-    return "You're HILARIOUS and I love you so much! 💖 Maybe you were too busy looking into my eyes to remember the details - and honestly, that's the sweetest thing ever! Being present with me is worth more than perfect memory! 😂💕";
+    return "Areee!!,Sahi hi bola tha tune, Memory kamzor hai teri thodi, but koina mein sambhal lunga sab(Badaam khilaunga tujhe😅), Vo Sab Chodd, Happy Bday Yaar, Hope You liked this present. Just 1 more thing, There's a final hint for you. Click on the button😉";
   }
 };
 
 const finalHint = {
-  title: "Your Final Birthday Surprise! 🎉",
-  message: "My dearest love, this quiz was just the beginning of your birthday surprises...",
-  hint: "Check under your pillow tonight for something special that will make your heart skip a beat! 💝",
-  extraMessage: "Every question in this quiz reminded me of why I fall in love with you more each day. You are my greatest adventure, my sweetest dream, and my forever person. Happy Birthday, beautiful! 🌟💕"
+  title: "Your Final Hint 🎉",
+  message: "So, You have reached the end. Hope you got a good score Dumbass.",
+  hint: "I have told you the day I finally realized that I have fell for you. There was a specific Incident. Remember the place in that incident?. Yepp, Go through your memories, our texts and find out. I'll be waiting there at 23:00. (Call me at that time if you cant solve the hint)",
+  extraMessage: "While making this quiz, I realized what all memories we have together. How beautiful they are and how happy I felt while thinking about them. You came so unexpectedly in my life and now have become one of the most important part of it. I Love You, Anushka! 🌟💕"
 };
 
 // Bouncing Photo Component with improved physics
 const BouncingPhoto = ({ src, index }) => {
   const [position, setPosition] = useState({
-    x: Math.random() * 80 + 10, // Start between 10-90% from left
-    y: Math.random() * 70 + 10, // Start between 10-80% from top
-    vx: (Math.random() - 0.5) * 1.5, // Velocity X (-1.5 to 1.5)
-    vy: (Math.random() - 0.5) * 1.5  // Velocity Y (-1.5 to 1.5)
+    x: Math.random() * 80 + 10,
+    y: Math.random() * 70 + 10,
+    vx: (Math.random() - 0.5) * 1.0, // Better initial speed
+    vy: (Math.random() - 0.5) * 1.0  // Better initial speed
   });
 
   useEffect(() => {
@@ -75,45 +187,45 @@ const BouncingPhoto = ({ src, index }) => {
         let newY = prev.y + prev.vy;
         let newVx = prev.vx;
         let newVy = prev.vy;
-
-        // Bounce off walls with some energy retention
-        if (newX <= 5 || newX >= 95) {
-          newVx = -newVx; // Slight energy loss on bounce
-          newX = Math.max(5, Math.min(95, newX));
-        }
-        if (newY <= 5 || newY >= 90) {
-          newVy = -newVy; // Slight energy loss on bounce
-          newY = Math.max(5, Math.min(90, newY));
-        }
-
-        // Add slight gravity effect
-        newVy += 0.02;
-
-        // Limit maximum velocity
-        newVx = Math.max(-4, Math.min(4, newVx));
-        newVy = Math.max(-4, Math.min(4, newVy));
-
+  
+   // Smooth boundary reflection
+if (newX <= 8 || newX >= 92) { // Changed from 5 and 95 to 8 and 92
+  newVx = -newVx * 0.95;
+  newX = Math.max(8, Math.min(92, newX)); // Changed from 5 and 95 to 8 and 92
+}
+if (newY <= 8 || newY >= 87) { // Changed from 5 and 90 to 8 and 87
+  newVy = -newVy * 0.95;
+  newY = Math.max(8, Math.min(87, newY)); // Changed from 5 and 90 to 8 and 87
+}
+  
+        // Smooth random drift
+        newVx += (Math.random() - 0.5) * 0.005;
+        newVy += (Math.random() - 0.5) * 0.005;
+  
+        // Smooth speed limits
+        newVx = Math.max(-1.2, Math.min(1.2, newVx));
+        newVy = Math.max(-1.2, Math.min(1.2, newVy));
+  
         return { x: newX, y: newY, vx: newVx, vy: newVy };
       });
-    }, 16); // Update every 50ms for smooth movement
-
+    }, 16); // 60fps for smooth animation
+  
     return () => clearInterval(interval);
   }, []);
-
   return (
     <div
-      className="fixed z-10 pointer-events-none"
-      style={{
-        left: `${position.x}%`,
-        top: `${position.y}%`,
-        transform: 'translate(-50%, -50%)'
-      }}
-    >
+    className="fixed z-10 pointer-events-none transition-all duration-75 ease-out" // Add transition
+    style={{
+      left: `${position.x}%`,
+      top: `${position.y}%`,
+      transform: 'translate(-50%, -50%)'
+    }}
+  >
       <div className="relative">
         <img
           src={src}
           alt={`Memory ${index + 1}`}
-          className="w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white shadow-2xl hover:scale-110 transition-transform duration-300"
+          className="w-40 h-40 md:w-40 md:h-40 rounded-full border-4 border-white shadow-2xl hover:scale-110 transition-transform duration-300"
           style={{
             animationDuration: `${1.5 + Math.random()}s`,
             filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.3))'
@@ -206,7 +318,7 @@ function QuizApp() {
 
       setTimeout(() => {
         nextQuestion();
-      }, 8000); // Longer to show photo
+      }, 12000); // Longer to show photo
     } else {
       // Wrong answer
       setWrongAttempts(prev => prev + 1);
@@ -379,7 +491,7 @@ function QuizApp() {
         <RomanticBackground />
 
         {/* Bouncing photos */}
-        {floatingPhotosUrls.slice(0, 6).map((photoUrl, index) => (
+        {floatingPhotosUrls.map((photoUrl, index) => (
           <BouncingPhoto key={index} src={photoUrl} index={index} />
         ))}
 
@@ -507,7 +619,7 @@ function QuizApp() {
             <div className="space-y-6">
               <button
                 onClick={resetQuiz}
-                className="px-10 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-full shadow-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 text-lg"
+                className="px-10 mx-1 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-full shadow-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 text-lg"
               >
                 Take Quiz Again 🔄
               </button>
@@ -516,7 +628,7 @@ function QuizApp() {
                 onClick={() => setCurrentScreen('finalHint')}
                 className="px-10 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full shadow-xl hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 text-lg animate-pulse"
               >
-                Final Surprise 🎁✨
+                Final Hint 🎁✨
               </button>
             </div>
           </div>
@@ -548,8 +660,13 @@ function QuizApp() {
             <h2 className="text-lg text-pink-500 mb-3 font-semibold bg-pink-100 inline-block px-4 py-2 rounded-full">
               Question {currentQuestion + 1} of {quizQuestions.length}
             </h2>
-            <h1 className="text-3xl md:text-4xl font-bold text-pink-700 mb-8 leading-tight bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
-              {currentQ.question}
+            <h1 className="text-3xl md:text-4xl font-bold text-pink-700 mb-8 leading-tight">
+              <span className="bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+                {currentQ.question.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '')}
+              </span>
+              <span className="ml-2">
+                {currentQ.question.match(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu)?.join(' ')}
+              </span>
             </h1>
           </div>
 
