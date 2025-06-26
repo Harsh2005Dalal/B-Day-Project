@@ -4,19 +4,19 @@ import {Link} from 'react-router-dom'
 
 // Mock images for demo - replace with your actual imports
 const photos = [
-  "https://picsum.photos/400/400?random=1",
-  "https://picsum.photos/400/400?random=2", 
-  "https://picsum.photos/400/400?random=3",
-  "https://picsum.photos/400/400?random=4",
-  "https://picsum.photos/400/400?random=5",
-  "https://picsum.photos/400/400?random=6",
-  "https://picsum.photos/400/400?random=7"
+  // "/src/assets/homePhotos/1.png",
+  // "/src/assets/homePhotos/2.png",
+  // "/src/assets/homePhotos/3.png",
+  // "/src/assets/homePhotos/4.png",
+  // "/src/assets/homePhotos/5.png",
+  // "/src/assets/homePhotos/6.png",
+  // "/src/assets/homePhotos/7.png",
 ];
 
 const messages = [
-  "Happy Birthday, My Love! 🎂❤️",
+  "Happy Birthday, My Pringles! 🎂❤️",
   "Every moment with you is a celebration...",
-  "Let's see how well you remember our journey 💌",
+  "Let's see how sharp is your memory😁",
 ];
 
 const photoAnimations = [
@@ -635,7 +635,7 @@ function App() {
                 className="text-base md:text-lg text-rose-500 opacity-90"
                 style={{ animationDelay: "1s" }}
               >
-                Every moment with you is etched in my heart forever. 💖
+                Every Moment we spent together was something very special 🌹
               </p>
             </div>
 

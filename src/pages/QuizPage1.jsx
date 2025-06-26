@@ -4,13 +4,14 @@ import { Heart, Star, Gift, Camera, Sparkles } from "lucide-react";
 // Quiz questions data - Add your own questions here
 const quizQuestions = [
   {
-    question: "What was the first movie we watched together?",
-    answer: "titanic",
-    options: ["Titanic", "The Notebook", "La La Land", "Avengers"],
-    correctOption: "titanic",
-    hint: "It was about a ship that sank... 🚢",
-    sweetMessage: "That night when we shared popcorn and you cried at the end... I knew you had the most beautiful heart. 💕",
-    photoUrl: "https://via.placeholder.com/400x300/ff6b9d/ffffff?text=First+Movie+Night"
+    question: "Whos's your Celebrity Crush??(Give First Name only)",
+    answer: "rohit",
+    options: ["rohit", "korean", "harsh", "None"],
+    correctOption: "rohit",
+    hint: "You really need hint for this one??....",
+    sweetMessage: "Oh, Dumbass, Shouldnt it be Me, Dumbass?😁 (Dekh to kitna handsome hu mein)",
+    photoUrl: "/src/assets/quizPhotos/q1.jpg",
+    page:"48"
   },
   {
     question: "Where did we have our first kiss?",
@@ -20,183 +21,18 @@ const quizQuestions = [
     hint: "Under the stars, surrounded by nature... 🌟",
     sweetMessage: "That moment is forever etched in my heart. Time stopped and all I could see was you. 💋",
     photoUrl: "https://via.placeholder.com/400x300/ff9999/ffffff?text=First+Kiss+Moment"
-  },
-  // {
-  //   question: "What's my favorite thing about you?",
-  //   answer: "smile",
-  //   options: ["Your smile", "Your laugh", "Your eyes", "Your kindness"],
-  //   correctOption: "your laugh",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // },
-  // {
-  //   question: "What's my favorite thing about me?",
-  //   answer: "me",
-  //   options: ["Me", "Me", "Me", "Me"],
-  //   correctOption: "me",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // },
-  // {
-  //   question: "What was the first movie we watched together?",
-  //   answer: "titanic",
-  //   options: ["Titanic", "The Notebook", "La La Land", "Avengers"],
-  //   correctOption: "titanic",
-  //   hint: "It was about a ship that sank... 🚢",
-  //   sweetMessage: "That night when we shared popcorn and you cried at the end... I knew you had the most beautiful heart. 💕",
-  //   photoUrl: "https://via.placeholder.com/400x300/ff6b9d/ffffff?text=First+Movie+Night"
-  // },
-  // {
-  //   question: "Where did we have our first kiss?",
-  //   answer: "park",
-  //   options: ["At the park", "In the car", "At my place", "At the beach"],
-  //   correctOption: "at the park",
-  //   hint: "Under the stars, surrounded by nature... 🌟",
-  //   sweetMessage: "That moment is forever etched in my heart. Time stopped and all I could see was you. 💋",
-  //   photoUrl: "https://via.placeholder.com/400x300/ff9999/ffffff?text=First+Kiss+Moment"
-  // },
-  // {
-  //   question: "What's my favorite thing about you?",
-  //   answer: "smile",
-  //   options: ["Your smile", "Your laugh", "Your eyes", "Your kindness"],
-  //   correctOption: "your laugh",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // },
-  // {
-  //   question: "What's my favorite thing about me?",
-  //   answer: "me",
-  //   options: ["Me", "Me", "Me", "Me"],
-  //   correctOption: "me",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // },
-  // {
-  //   question: "What was the first movie we watched together?",
-  //   answer: "titanic",
-  //   options: ["Titanic", "The Notebook", "La La Land", "Avengers"],
-  //   correctOption: "titanic",
-  //   hint: "It was about a ship that sank... 🚢",
-  //   sweetMessage: "That night when we shared popcorn and you cried at the end... I knew you had the most beautiful heart. 💕",
-  //   photoUrl: "https://via.placeholder.com/400x300/ff6b9d/ffffff?text=First+Movie+Night"
-  // },
-  // {
-  //   question: "Where did we have our first kiss?",
-  //   answer: "park",
-  //   options: ["At the park", "In the car", "At my place", "At the beach"],
-  //   correctOption: "at the park",
-  //   hint: "Under the stars, surrounded by nature... 🌟",
-  //   sweetMessage: "That moment is forever etched in my heart. Time stopped and all I could see was you. 💋",
-  //   photoUrl: "https://via.placeholder.com/400x300/ff9999/ffffff?text=First+Kiss+Moment"
-  // },
-  // {
-  //   question: "What's my favorite thing about you?",
-  //   answer: "smile",
-  //   options: ["Your smile", "Your laugh", "Your eyes", "Your kindness"],
-  //   correctOption: "your laugh",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // },
-  // {
-  //   question: "What's my favorite thing about me?",
-  //   answer: "me",
-  //   options: ["Me", "Me", "Me", "Me"],
-  //   correctOption: "me",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // },
-  // {
-  //   question: "What was the first movie we watched together?",
-  //   answer: "titanic",
-  //   options: ["Titanic", "The Notebook", "La La Land", "Avengers"],
-  //   correctOption: "titanic",
-  //   hint: "It was about a ship that sank... 🚢",
-  //   sweetMessage: "That night when we shared popcorn and you cried at the end... I knew you had the most beautiful heart. 💕",
-  //   photoUrl: "https://via.placeholder.com/400x300/ff6b9d/ffffff?text=First+Movie+Night"
-  // },
-  // {
-  //   question: "Where did we have our first kiss?",
-  //   answer: "park",
-  //   options: ["At the park", "In the car", "At my place", "At the beach"],
-  //   correctOption: "at the park",
-  //   hint: "Under the stars, surrounded by nature... 🌟",
-  //   sweetMessage: "That moment is forever etched in my heart. Time stopped and all I could see was you. 💋",
-  //   photoUrl: "https://via.placeholder.com/400x300/ff9999/ffffff?text=First+Kiss+Moment"
-  // },
-  // {
-  //   question: "What's my favorite thing about you?",
-  //   answer: "smile",
-  //   options: ["Your smile", "Your laugh", "Your eyes", "Your kindness"],
-  //   correctOption: "your laugh",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // },
-  // {
-  //   question: "What's my favorite thing about me?",
-  //   answer: "me",
-  //   options: ["Me", "Me", "Me", "Me"],
-  //   correctOption: "me",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // },
-  // {
-  //   question: "What was the first movie we watched together?",
-  //   answer: "titanic",
-  //   options: ["Titanic", "The Notebook", "La La Land", "Avengers"],
-  //   correctOption: "titanic",
-  //   hint: "It was about a ship that sank... 🚢",
-  //   sweetMessage: "That night when we shared popcorn and you cried at the end... I knew you had the most beautiful heart. 💕",
-  //   photoUrl: "https://via.placeholder.com/400x300/ff6b9d/ffffff?text=First+Movie+Night"
-  // },
-  // {
-  //   question: "Where did we have our first kiss?",
-  //   answer: "park",
-  //   options: ["At the park", "In the car", "At my place", "At the beach"],
-  //   correctOption: "at the park",
-  //   hint: "Under the stars, surrounded by nature... 🌟",
-  //   sweetMessage: "That moment is forever etched in my heart. Time stopped and all I could see was you. 💋",
-  //   photoUrl: "https://via.placeholder.com/400x300/ff9999/ffffff?text=First+Kiss+Moment"
-  // },
-  // {
-  //   question: "What's my favorite thing about you?",
-  //   answer: "smile",
-  //   options: ["Your smile", "Your laugh", "Your eyes", "Your kindness"],
-  //   correctOption: "your laugh",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // },
-  // {
-  //   question: "What's my favorite thing about me?",
-  //   answer: "me",
-  //   options: ["Me", "Me", "Me", "Me"],
-  //   correctOption: "me",
-  //   hint: "It lights up my entire world every single day... ✨",
-  //   sweetMessage: "Your smile is my daily dose of sunshine. It makes everything better, always. 🌞",
-  //   photoUrl: "https://via.placeholder.com/400x300/ffb3e6/ffffff?text=Your+Beautiful+Smile"
-  // }
+  }
 ];
 
 // Random floating photos - Replace these URLs with your actual photo URLs
 const floatingPhotosUrls = [
   "/src/assets/homePhotos/1.png",
-  "https://via.placeholder.com/120x120/ff9999/ffffff?text=Memory+2",
-  "https://via.placeholder.com/120x120/ffb3e6/ffffff?text=Memory+3",
-  "https://via.placeholder.com/120x120/ffd1dc/ffffff?text=Memory+4",
-  "https://via.placeholder.com/120x120/ff69b4/ffffff?text=Memory+5",
-  "https://via.placeholder.com/120x120/ffc0cb/ffffff?text=Memory+6",
-  "https://via.placeholder.com/120x120/ffb3d9/ffffff?text=Memory+7",
-  "https://via.placeholder.com/120x120/ff8fa3/ffffff?text=Memory+8",
-  "https://via.placeholder.com/120x120/ffcccb/ffffff?text=Memory+9",
-  "https://via.placeholder.com/120x120/ff91a4/ffffff?text=Memory+10"
+  // "/src/assets/homePhotos/2.png",
+  // "/src/assets/homePhotos/3.png",
+  // "/src/assets/homePhotos/4.png",
+  // "/src/assets/homePhotos/5.png",
+  // "/src/assets/homePhotos/6.png",
+  // "/src/assets/homePhotos/7.png",
 ];
 
 // Dynamic final messages based on performance
@@ -439,28 +275,28 @@ function QuizApp() {
       <div className="flex items-center justify-center gap-3 mb-8">
         <span className="text-pink-700 font-bold text-lg">Progress:</span>
         <div className="flex gap-2">
-  {quizQuestions.length <= 10 ? (
-    // Show individual hearts for 10 or fewer questions
-    Array.from({ length: quizQuestions.length }, (_, i) => (
-      <Heart
-        key={i}
-        className={`w-8 h-8 transition-all duration-300 ${i < totalAttempted
-          ? 'fill-pink-500 text-pink-500 scale-110'
-          : 'text-pink-200 hover:text-pink-300'
-        }`}
-      />
-    ))
-  ) : (
-    // Show progress bar for more than 10 questions
-    <div className="bg-pink-200 rounded-full h-4 w-64 overflow-hidden">
-      <div 
-        className="bg-gradient-to-r from-pink-500 to-rose-500 h-full transition-all duration-500 ease-out"
-        style={{ width: `${(totalAttempted / quizQuestions.length) * 100}%` }}
-      ></div>
-    </div>
-  )}
-</div>
-</div>
+          {quizQuestions.length <= 10 ? (
+            // Show individual hearts for 10 or fewer questions
+            Array.from({ length: quizQuestions.length }, (_, i) => (
+              <Heart
+                key={i}
+                className={`w-8 h-8 transition-all duration-300 ${i < totalAttempted
+                  ? 'fill-pink-500 text-pink-500 scale-110'
+                  : 'text-pink-200 hover:text-pink-300'
+                  }`}
+              />
+            ))
+          ) : (
+            // Show progress bar for more than 10 questions
+            <div className="bg-pink-200 rounded-full h-4 w-64 overflow-hidden">
+              <div
+                className="bg-gradient-to-r from-pink-500 to-rose-500 h-full transition-all duration-500 ease-out"
+                style={{ width: `${(totalAttempted / quizQuestions.length) * 100}%` }}
+              ></div>
+            </div>
+          )}
+        </div>
+      </div>
     );
   }
 
@@ -548,7 +384,7 @@ function QuizApp() {
         ))}
 
         <div className="max-w-3xl mx-auto text-center relative z-20">
-        <div className="bg-white/10 rounded-3xl p-8 md:p-12 shadow-2xl border-2 border-pink-200">
+          <div className="bg-white/10 rounded-3xl p-8 md:p-12 shadow-2xl border-2 border-pink-200">
             <div className="mb-8">
               <div className="relative mb-6">
                 <Gift className="w-20 h-20 text-pink-500 mx-auto animate-bounce" />
@@ -557,7 +393,7 @@ function QuizApp() {
                 </div>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold text-pink-700 mb-6 bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
-                Happy Birthday, My Love! 🎂
+                Happy Birthday, Dumbass 🎂
               </h1>
               <p className="text-xl text-pink-600 mb-3">
                 I've prepared a special quiz just for you...
@@ -585,6 +421,14 @@ function QuizApp() {
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="w-2 h-2 bg-pink-400 rounded-full"></span>
+                    Answer given using mcq wont be treated as correct 📸
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-pink-400 rounded-full"></span>
+                    Each answer is one word, and make sure all alphabets are in smallcase
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-pink-400 rounded-full"></span>
                     Each question comes with a special message and photo just for you 💌
                   </li>
                   <li className="flex items-center gap-2">
@@ -599,7 +443,7 @@ function QuizApp() {
               onClick={() => setCurrentScreen('quiz')}
               className="px-12 py-5 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-full text-2xl shadow-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 transform hover:scale-105"
             >
-              Start Our Love Quiz 💖
+              Start The Quiz 💖
             </button>
           </div>
         </div>
@@ -690,8 +534,8 @@ function QuizApp() {
         <BouncingPhoto key={index} src={photoUrl} index={index} />
       ))}
 
-<div className="min-h-screen flex items-center justify-center max-w-2xl mx-auto relative z-20 w-full px-4">
-<div className="bg-white/90 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-2xl border-2 border-pink-200 relative overflow-hidden max-w-lg mx-auto">
+      <div className="min-h-screen flex items-center justify-center max-w-2xl mx-auto relative z-20 w-full px-4">
+        <div className="bg-white/90 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-2xl border-2 border-pink-200 relative overflow-hidden max-w-lg mx-auto">
           {/* Enhanced decorative corner elements */}
           <div className="absolute top-4 left-4 text-2xl animate-pulse">💖</div>
           <div className="absolute top-4 right-4 text-2xl animate-pulse" style={{ animationDelay: '0.5s' }}>✨</div>
@@ -729,10 +573,11 @@ function QuizApp() {
                     <img
                       src={currentQ.photoUrl}
                       alt="Special Memory"
-                      className="rounded-3xl shadow-2xl w-full h-auto max-h-48 object-cover border-4 border-pink-200"
+                      className="rounded-3xl shadow-2xl w-56 max-h-96 object-contain border-4 border-pink-200 mx-auto"
                     />
                     <div className="absolute -top-4 -right-4">
                       <Camera className="w-12 h-12 text-pink-500 bg-white rounded-full p-2 shadow-xl animate-bounce" />
+                      <span>{currentQ.page}</span>
                     </div>
                   </div>
                   <p className="text-pink-600 mt-6 font-bold text-lg">A special memory just for you! 📸💕</p>
