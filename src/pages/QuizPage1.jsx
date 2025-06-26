@@ -10,7 +10,7 @@ const quizQuestions = [
     correctOption: "rohit",
     hint: "You really need hint for this one??....",
     sweetMessage: "Oh, Dumbass, Shouldnt it be Me, Dumbass?😁 (Dekh to kitna handsome hu mein)",
-    photoUrl: "/src/assets/quizPhotos/q1.jpg",
+    photoUrl: "./quizPhotos/q1.jpg",
     page:"48"
   },
   {
