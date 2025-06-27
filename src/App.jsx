@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
 import { Typewriter } from "react-simple-typewriter";
-import {Link} from 'react-router-dom'
 
 // Mock images for demo - replace with your actual imports
 const photos = [
@@ -66,6 +65,45 @@ function App() {
   const [floatingPhotos, setFloatingPhotos] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState(1);
   const [fadingPhotos, setFadingPhotos] = useState(new Set());
+  const [loadedImages, setLoadedImages] = useState(new Set());
+  const [isPreloading, setIsPreloading] = useState(true);
+  const [preloadProgress, setPreloadProgress] = useState(0);
+
+  // Preload all images
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imagePromises = photos.map((src, index) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => {
+            setLoadedImages(prev => new Set([...prev, src]));
+            setPreloadProgress(prev => Math.min(prev + (100 / photos.length), 100));
+            resolve(src);
+          };
+          img.onerror = () => {
+            console.warn(`Failed to load image: ${src}`);
+            // Still resolve to continue with other images
+            setPreloadProgress(prev => Math.min(prev + (100 / photos.length), 100));
+            resolve(src);
+          };
+          img.src = src;
+        });
+      });
+
+      try {
+        await Promise.allSettled(imagePromises);
+        // Small delay to show completion
+        setTimeout(() => {
+          setIsPreloading(false);
+        }, 500);
+      } catch (error) {
+        console.error('Error preloading images:', error);
+        setIsPreloading(false);
+      }
+    };
+
+    preloadImages();
+  }, []);
 
   const getRandomPosition = useCallback((existingPhotos = []) => {
     const minDistance = 150;
@@ -92,7 +130,6 @@ function App() {
       attempts++;
     }
 
-    // Fallback position if all attempts failed
     return {
       x: 50 + Math.random() * (maxWidth - 100),
       y: 50 + Math.random() * (maxHeight - 100),
@@ -108,58 +145,67 @@ function App() {
   }, []);
 
   const createNewPhoto = useCallback((existingPhotos = []) => {
+    // Only create photos from loaded images
+    const availablePhotos = photos.filter(src => loadedImages.has(src));
+    if (availablePhotos.length === 0) return null;
+
     const position = getRandomPosition(existingPhotos);
     return {
       id: Date.now() + Math.random(),
-      src: photos[Math.floor(Math.random() * photos.length)],
+      src: availablePhotos[Math.floor(Math.random() * availablePhotos.length)],
       ...position,
       animation: getRandomAnimation(),
       shape: getRandomShape(),
       createdAt: Date.now(),
     };
-  }, [getRandomPosition, getRandomAnimation, getRandomShape]);
+  }, [getRandomPosition, getRandomAnimation, getRandomShape, loadedImages]);
 
-  // Initialize with photos
+  // Initialize with photos only after preloading
   useEffect(() => {
+    if (isPreloading || loadedImages.size === 0) return;
+
     const initialPhotos = [];
     for (let i = 0; i < 6; i++) {
       const newPhoto = createNewPhoto(initialPhotos);
-      newPhoto.id = `initial-${i}-${Date.now()}`;
-      initialPhotos.push(newPhoto);
+      if (newPhoto) {
+        newPhoto.id = `initial-${i}-${Date.now()}`;
+        initialPhotos.push(newPhoto);
+      }
     }
     setFloatingPhotos(initialPhotos);
-  }, [createNewPhoto]);
+  }, [createNewPhoto, isPreloading, loadedImages.size]);
 
-  // Add new photos periodically
+  // Add new photos periodically (only after preloading)
   useEffect(() => {
+    if (isPreloading) return;
+
     const addPhotoInterval = setInterval(() => {
       setFloatingPhotos(prev => {
-        // Only add if we have less than 8 photos
         if (prev.length >= 8) return prev;
         
         const newPhoto = createNewPhoto(prev);
-        return [...prev, newPhoto];
+        return newPhoto ? [...prev, newPhoto] : prev;
       });
-    }, 2000); // Add every 2 seconds
+    }, 2000);
 
     return () => clearInterval(addPhotoInterval);
-  }, [createNewPhoto]);
+  }, [createNewPhoto, isPreloading]);
 
   // Remove old photos with fade out animation
   useEffect(() => {
+    if (isPreloading) return;
+
     const cleanupInterval = setInterval(() => {
       setFloatingPhotos(prev => {
         const now = Date.now();
         const minPhotos = 4;
-        const maxAge = 8000; // 8 seconds before starting fade
+        const maxAge = 8000;
         
-        // Find photos that should start fading
         const photosToFade = prev.filter(photo => {
           const age = now - photo.createdAt;
           return age > maxAge && prev.length > minPhotos;
         });
         
-        // Start fade animation for old photos
         if (photosToFade.length > 0) {
           setFadingPhotos(prevFading => {
             const newFading = new Set(prevFading);
@@ -167,7 +213,6 @@ function App() {
             return newFading;
           });
           
-          // Remove photos after fade animation completes (2 seconds)
           photosToFade.forEach(photo => {
             setTimeout(() => {
               setFloatingPhotos(currentPhotos => 
@@ -184,13 +229,15 @@ function App() {
         
         return prev;
       });
-    }, 1000); // Check every second
+    }, 1000);
 
     return () => clearInterval(cleanupInterval);
-  }, []);
+  }, [isPreloading]);
 
   // Safety check to ensure we always have minimum photos
   useEffect(() => {
+    if (isPreloading) return;
+
     const safetyInterval = setInterval(() => {
       setFloatingPhotos(prev => {
         const minPhotos = 4;
@@ -200,19 +247,48 @@ function App() {
           
           for (let i = 0; i < photosToAdd; i++) {
             const newPhoto = createNewPhoto([...prev, ...newPhotos]);
-            newPhoto.id = `safety-${i}-${Date.now()}`;
-            newPhotos.push(newPhoto);
+            if (newPhoto) {
+              newPhoto.id = `safety-${i}-${Date.now()}`;
+              newPhotos.push(newPhoto);
+            }
           }
           
           return [...prev, ...newPhotos];
         }
         return prev;
       });
-    }, 3000); // Check every 3 seconds
+    }, 3000);
 
     return () => clearInterval(safetyInterval);
-  }, [createNewPhoto]);
+  }, [createNewPhoto, isPreloading]);
 
+  // Loading screen component
+  if (isPreloading) {
+    return (
+      <div className="min-h-screen bg-gradient-romantic flex flex-col items-center justify-center">
+        <div className="text-center p-8">
+          <div className="text-6xl mb-6 animate-bounce">💕</div>
+          <h2 className="text-3xl font-bold text-rose-700 mb-4">
+            Loading Beautiful Memories...
+          </h2>
+          <div className="w-80 bg-rose-200 rounded-full h-4 mb-4 overflow-hidden">
+            <div 
+              className="bg-gradient-to-r from-rose-500 to-pink-500 h-full rounded-full transition-all duration-300 ease-out"
+              style={{ width: `${preloadProgress}%` }}
+            />
+          </div>
+          <p className="text-rose-600 text-lg">
+            {Math.round(preloadProgress)}% loaded
+          </p>
+          <div className="flex justify-center space-x-2 mt-4">
+            <div className="w-2 h-2 bg-rose-400 rounded-full animate-bounce" style={{animationDelay: '0s'}}></div>
+            <div className="w-2 h-2 bg-rose-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+            <div className="w-2 h-2 bg-rose-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -583,7 +659,7 @@ function App() {
       <div className="relative min-h-screen bg-gradient-romantic overflow-hidden">
         {/* Debug Info */}
         <div className="absolute top-4 left-4 bg-black/20 text-white p-2 rounded z-50 text-sm">
-          Photos: {floatingPhotos.length}
+          Photos: {floatingPhotos.length} | Loaded: {loadedImages.size}
         </div>
 
         {/* Floating Photos */}
@@ -601,7 +677,7 @@ function App() {
               pointerEvents: "none",
               zIndex: index % 2 === 0 ? 1 : 2,
             }}
-            loading="lazy"
+            loading="eager"
           />
         ))}
 
@@ -656,13 +732,13 @@ function App() {
               </p>
             </div>
 
-            <Link
-            to= '/quiz/1'
+            <button
+              onClick={() => console.log('Navigate to /quiz/1')}
               className="px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-full text-lg md:text-xl shadow-2xl hover:from-rose-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-rose-300 animate-pulse-slow"
               aria-label="Start the romantic birthday quiz"
             >
               Start Our Journey Quiz 🎉✨
-            </Link>
+            </button>
 
             <p className="mt-4 text-sm text-rose-400 opacity-75">
               Let's relive our beautiful memories together...
