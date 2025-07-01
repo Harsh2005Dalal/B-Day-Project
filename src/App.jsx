@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { Typewriter } from "react-simple-typewriter";
+import { Link } from "react-router-dom"
 
 // Mock images for demo - replace with your actual imports
 const photos = [
@@ -732,6 +733,7 @@ function App() {
               </p>
             </div>
 
+          <Link to="/1">
             <button
               onClick={() => console.log('Navigate to /quiz/1')}
               className="px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-full text-lg md:text-xl shadow-2xl hover:from-rose-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-rose-300 animate-pulse-slow"
@@ -739,6 +741,7 @@ function App() {
             >
               Start Our Journey Quiz 🎉✨
             </button>
+            </Link>
 
             <p className="mt-4 text-sm text-rose-400 opacity-75">
               Let's relive our beautiful memories together...

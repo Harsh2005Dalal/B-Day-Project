@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <QuizProvider>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/quiz/1" element={<QuestionOne />} />
+      <Route path="/1" element={<QuestionOne />} />
       <Route path="/quiz/2" element={<QuestionTwo />} />
       {/* Add quiz pages like <Route path="/quiz/1" element={<Quiz1 />} /> later */}
     </Routes>
