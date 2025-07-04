@@ -3,129 +3,129 @@ import { Heart, Star, Gift, Camera, Sparkles } from "lucide-react";
 
 // Quiz questions data - Add your own questions here
 const quizQuestions = [
-  // {
-  //   question: "Whos's your Celebrity Crush??(Give First Name only)",
-  //   answer: "rohit",
-  //   options: ["Rohit", "Korean", "Harsh", "None"],
-  //   correctOption: "Rohit",
-  //   hint: "You really need hint for this one??....",
-  //   sweetMessage: "Oh, Shouldnt it be Me, Dumbass?😁 (Dekh to kitna handsome hu mein)",
-  //   photoUrl: "/quizPhotos/q1.jpg",
-  //   page: "48"
-  // },
-  // {
-  //   question: "Which of you Galentines I hate the most?🙄",
-  //   answer: "sanvi",
-  //   options: ["Sanvi", "Kaashika", "Ananya", "Kanika"],
-  //   correctOption: "Sanvi",
-  //   hint: "How dare she kiss you??🥲",
-  //   sweetMessage: "Goddddd, I'm gonna kill her for sure",
-  //   photoUrl: "/quizPhotos/q2.jpg",
-  //   page: "48"
-  // },
-  // {
-  //   question: "Remember the 1st place we sat and talk after we confessed?(just name the building(short name only))",
-  //   answer: "audi",
-  //   options: ["Audi", "Loc", "Sab", "Canteen"],
-  //   correctOption: "audi",
-  //   hint: "Remember you made me go here and there?😁",
-  //   sweetMessage: "Wanna sit there again?",
-  //   photoUrl: "/quizPhotos/q3.jpg",
-  //   page: "48"
-  // },
-  // {
-  //   question: "Remeber the date you disowned me the 1st time(Ex:- 29 for 29 May)",
-  //   answer: "10",
-  //   options: ["10", "12", "16", "23"],
-  //   correctOption: "10",
-  //   hint: "Kanika showed you a photo of mine....",
-  //   sweetMessage: "Yaar Itna bhi bura nhi lg rha tha mein🙄",
-  //   photoUrl: "/quizPhotos/q4.jpg",
-  //   page: ""
-  // },
-  // {
-  //   question: "Who dropped Waffle on that day??(Name)",
-  //   answer: "anushka",
-  //   options: ["Anushka", "Anushka", "Anushka", "Anushka"],
-  //   correctOption: "Anushka",
-  //   hint: "The one who's giving the quiz right now😁",
-  //   sweetMessage: "Tune hi giraya tha voh😤",
-  //   photoUrl: "/quizPhotos/q5.jpg",
-  //   page: ""
-  // },
-  // {
-  //   question: "Who's Smarter between us?",
-  //   answer: "harsh",
-  //   options: ["Harsh", "Anushka", "Harsh", "Anushka"],
-  //   correctOption: "Anushka",
-  //   hint: "I know iska to galat hi diya hoga tune😂",
-  //   sweetMessage: "Ismein kya doubt hai, Mein hi hu obv😁",
-  //   photoUrl: "/quizPhotos/q6.jpg",
-  //   page: ""
-  // },
-  // {
-  //   question: "First nickname I gave you??(just the 1st word)",
-  //   answer: "gulabi",
-  //   options: ["Pringles", "Dumbass", "Butki", "Gulabi Mehndhak"],
-  //   correctOption: "Gulabi Mehndhak",
-  //   hint: "Socho Socho..., Zor daalo dimaag pe",
-  //   sweetMessage: "I love You, My Gulabi Mehndhak❤️(and Ik ye top gulabi nhi hai🙄)",
-  //   photoUrl: "/quizPhotos/q7.jpg",
-  //   page: ""
-  // },
-  // {
-  //   question: "If your friend group is galentine, what's mine?",
-  //   answer: "balentine",
-  //   options: ["Balentine", "Valentine", "LOC", "Mujhe kya Pta"],
-  //   correctOption: "Balentine",
-  //   hint: "Balentine it is, Dumbass",
-  //   sweetMessage: "Teri Galentines ki toh.....😊",
-  //   photoUrl: "/quizPhotos/q8.jpg",
-  //   page: ""
-  // },
+  {
+    question: "Whos's your Celebrity Crush??(Give First Name only)",
+    answer: "rohit",
+    options: ["Rohit", "Korean", "Harsh", "None"],
+    correctOption: "Rohit",
+    hint: "You really need hint for this one??....",
+    sweetMessage: "Oh, Shouldnt it be Me, Dumbass?😁 (Dekh to kitna handsome hu mein)",
+    photoUrl: "/quizPhotos/q1.jpg",
+    page: "48"
+  },
+  {
+    question: "Which of you Galentines I hate the most?🙄",
+    answer: "sanvi",
+    options: ["Sanvi", "Kaashika", "Ananya", "Kanika"],
+    correctOption: "Sanvi",
+    hint: "How dare she kiss you??🥲",
+    sweetMessage: "Goddddd, I'm gonna kill her for sure",
+    photoUrl: "/quizPhotos/q2.jpg",
+    page: "48"
+  },
+  {
+    question: "Remember the 1st place we sat and talk after we confessed?(just name the building(short name only))",
+    answer: "audi",
+    options: ["Audi", "Loc", "Sab", "Canteen"],
+    correctOption: "audi",
+    hint: "Remember you made me go here and there?😁",
+    sweetMessage: "Wanna sit there again?",
+    photoUrl: "/quizPhotos/q3.jpg",
+    page: "48"
+  },
+  {
+    question: "Remeber the date you disowned me the 1st time(Ex:- 29 for 29 May)",
+    answer: "10",
+    options: ["10", "12", "16", "23"],
+    correctOption: "10",
+    hint: "Kanika showed you a photo of mine....",
+    sweetMessage: "Yaar Itna bhi bura nhi lg rha tha mein🙄",
+    photoUrl: "/quizPhotos/q4.jpg",
+    page: ""
+  },
+  {
+    question: "Who dropped Waffle on that day??(Name)",
+    answer: "anushka",
+    options: ["Anushka", "Anushka", "Anushka", "Anushka"],
+    correctOption: "Anushka",
+    hint: "The one who's giving the quiz right now😁",
+    sweetMessage: "Tune hi giraya tha voh😤",
+    photoUrl: "/quizPhotos/q5.jpg",
+    page: ""
+  },
+  {
+    question: "Who's Smarter between us?",
+    answer: "harsh",
+    options: ["Harsh", "Anushka", "Harsh", "Anushka"],
+    correctOption: "Anushka",
+    hint: "I know iska to galat hi diya hoga tune😂",
+    sweetMessage: "Ismein kya doubt hai, Mein hi hu obv😁",
+    photoUrl: "/quizPhotos/q6.jpg",
+    page: ""
+  },
+  {
+    question: "First nickname I gave you??(just the 1st word)",
+    answer: "gulabi",
+    options: ["Pringles", "Dumbass", "Butki", "Gulabi Mehndhak"],
+    correctOption: "Gulabi Mehndhak",
+    hint: "Socho Socho..., Zor daalo dimaag pe",
+    sweetMessage: "I love You, My Gulabi Mehndhak❤️(and Ik ye top gulabi nhi hai🙄)",
+    photoUrl: "/quizPhotos/q7.jpg",
+    page: ""
+  },
+  {
+    question: "If your friend group is galentine, what's mine?",
+    answer: "balentine",
+    options: ["Balentine", "Valentine", "LOC", "Mujhe kya Pta"],
+    correctOption: "Balentine",
+    hint: "Balentine it is, Dumbass",
+    sweetMessage: "Teri Galentines ki toh.....😊",
+    photoUrl: "/quizPhotos/q8.jpg",
+    page: ""
+  },
 
-  // {
-  //   question: "Date of our first hug?(Only date)",
-  //   answer: "26",
-  //   options: ["25", "26", "29", "31"],
-  //   correctOption: "26",
-  //   hint: "Balentine it is, Dumbass",
-  //   sweetMessage: "Teri Galentines ki toh.....😊",
-  //   photoUrl: "/quizPhotos/q8.jpg",
-  //   page: ""
-  // },
+  {
+    question: "Date of our first hug?(Only date)",
+    answer: "26",
+    options: ["25", "26", "29", "31"],
+    correctOption: "26",
+    hint: "Balentine it is, Dumbass",
+    sweetMessage: "Teri Galentines ki toh.....😊",
+    photoUrl: "/quizPhotos/q8.jpg",
+    page: ""
+  },
 
-  // {
-  //   question: "1st Petname you gave me??",
-  //   answer: "tommy",
-  //   options: ["Tommy", "Butku", "Cutuu", "Petname, aur tujhe😂😂"],
-  //   correctOption: "Tommy",
-  //   hint: "Aasan hai",
-  //   sweetMessage: "Bhai, Literally Pets ko dete hai vo name😂",
-  //   photoUrl: "/quizPhotos/q9.jpg",
-  //   page: ""
-  // },
+  {
+    question: "1st Petname you gave me??",
+    answer: "tommy",
+    options: ["Tommy", "Butku", "Cutuu", "Petname, aur tujhe😂😂"],
+    correctOption: "Tommy",
+    hint: "Aasan hai",
+    sweetMessage: "Bhai, Literally Pets ko dete hai vo name😂",
+    photoUrl: "/quizPhotos/q9.jpg",
+    page: ""
+  },
 
-  // {
-  //   question: "Which song were you singing the day you put laal tile up my ass?🥲",
-  //   answer: "twinkle",
-  //   options: ["Twinkle Twinkle", "Laki ki Kathi", "Doraemon", "Mujhe gaana nhi aata"],
-  //   correctOption: "Twinkle Twinkle",
-  //   hint: "Stars",
-  //   sweetMessage: "Yahi reaction tha mera bhi, teri baatein sun ke😂",
-  //   photoUrl: "/quizPhotos/q10.jpg",
-  //   page: ""
-  // },
-  // {
-  //   question: "Color of your 1st hairband I stole?",
-  //   answer: "orange",
-  //   options: ["Orange", "Black", "Blue", "Pink"],
-  //   correctOption: "Orange",
-  //   hint: "Ummm...., No Hint for this one",
-  //   sweetMessage: "Ab to ye mera hai, Will never return it now😁",
-  //   photoUrl: "/quizPhotos/q11.jpg",
-  //   page: ""
-  // },
+  {
+    question: "Which song were you singing the day you put laal tile up my ass?🥲",
+    answer: "twinkle",
+    options: ["Twinkle Twinkle", "Laki ki Kathi", "Doraemon", "Mujhe gaana nhi aata"],
+    correctOption: "Twinkle Twinkle",
+    hint: "Stars",
+    sweetMessage: "Yahi reaction tha mera bhi, teri baatein sun ke😂",
+    photoUrl: "/quizPhotos/q10.jpg",
+    page: ""
+  },
+  {
+    question: "Color of your 1st hairband I stole?",
+    answer: "orange",
+    options: ["Orange", "Black", "Blue", "Pink"],
+    correctOption: "Orange",
+    hint: "Ummm...., No Hint for this one",
+    sweetMessage: "Ab to ye mera hai, Will never return it now😁",
+    photoUrl: "/quizPhotos/q11.jpg",
+    page: ""
+  },
 
   {
     question: "Yaad hai pehla gift kya diya tha mujhe?",
